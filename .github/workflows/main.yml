@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:  
+jobs:
+  build:
+    runs-on: ubuntu_latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Scripts
+        run: |
+          docker build -t webapp .
+          docker login -u kunichiwa -p dckr_pat_x4Rc-dVTLU8aJsYft8VqDls-9Wc
+          docker tag app kunichiwa/project
+          docker push kunichiwa/project
+          
+        
